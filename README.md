@@ -8,14 +8,14 @@ This project implements an **Email Text Classification system** to identify phis
 - [Features](#features)
 - [Setup and Installation](#setup-and-installation)
   - [Clone the Repository](#clone-the-repository)
-  - [Run the Dataset and MLflow Setup Script](#run-the-dataset-and-mlflow-setup-script)
   - [Install Poetry](#install-poetry)
   - [Set Up the Environment](#set-up-the-environment)
-- [Running the Application](#running-the-application)
+  - [Run the Dataset and MLflow Setup Script](#run-the-dataset-and-mlflow-setup-script)
+<!-- - [Running the Application](#running-the-application)
 - [Model Evaluation and Tracking](#model-evaluation-and-tracking)
 - [Testing](#testing)
 - [Contributing](#contributing)
-- [License](#license)
+- [License](#license) -->
 
 ---
 ## Introduction
@@ -84,3 +84,10 @@ Create a .env file in the root directory:
 MLFLOW_TRACKING_URI=sqlite:///mlflow.db
 DATASET_PATH=data/preprocessed_dataset.csv
 ```
+### 4. Run the Dataset and MLflow Setup Script
+You can run the below script to download both the dataset in csv format and the MLFlow experiment data from the initial notebook experiment:
+```bash
+poetry run python scripts/download_mlflow_db_and_dataset.py
+```
+You can also chose to download either the dataset only using the `--dataset-only` argument, or the MLFlow data only using the `--mlflow-data-only` argument. 
+Use `--help` for detailed info.
