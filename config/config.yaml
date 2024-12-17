@@ -1,0 +1,6 @@
+project:
+  name: "email_classifier"
+  version: "1.0.0"
+
+paths:
+  raw_data: "data/emails_model_testing_ling_ds.csv"
