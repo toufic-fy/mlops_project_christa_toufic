@@ -2,7 +2,7 @@
 .venv/
 
 # Ignore dataset files
-data/*.csv
+data/
 
 # Ignore Python cache files
 *.pyc
@@ -11,3 +11,6 @@ __pycache__/
 # Ignore system-specific files
 .DS_Store
 Thumbs.db
+
+#Ignore vscode files
+.vscode/

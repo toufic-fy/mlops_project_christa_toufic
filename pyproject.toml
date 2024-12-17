@@ -2,7 +2,7 @@
 name = "email-classifier"
 version = "0.1.0"
 description = ""
-authors = ["christamatta <christa.matta17@gmail.com>"]
+authors = ["christamatta <christa.matta17@gmail.com>", "touficfakhry <fakhrytoufic6@gmail.com>"]
 packages = [{include = "email_classifier", from = "src"}]
 readme = "README.md"
 
