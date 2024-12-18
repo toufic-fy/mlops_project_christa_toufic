@@ -1,12 +1,13 @@
 # src/email_classifier/data_loader/csv_loader.py
 import pandas as pd
 from .base_loader import DataLoader
+from typing import List
 
 
 class CSVLoader(DataLoader):
     """A data loader for loading CSV files."""
 
-    def load_data(self, file_path: str) -> pd.DataFrame:
+    def load_data(self, file_path: str) -> List[str]:
         """Loads data from a CSV file."""
         try:
             print(f"Loading CSV data from: {file_path}")

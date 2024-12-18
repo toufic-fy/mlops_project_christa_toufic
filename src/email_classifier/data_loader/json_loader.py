@@ -6,12 +6,12 @@ from .base_loader import DataLoader
 class JSONLoader(DataLoader):
     """A data loader for loading JSON files."""
 
-    def load_data(self, file_path: str) -> pd.DataFrame:
+    def load_data(self, file_path: str) -> list:
         """Loads data from a JSON file."""
         try:
             print(f"Loading JSON data from: {file_path}")
             data = pd.read_json(file_path)
             print("JSON data loaded successfully.")
-            return data
+            return data['body'].to_list()
         except Exception as e:
             raise ValueError(f"Error loading JSON file: {e}")
