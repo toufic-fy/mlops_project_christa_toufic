@@ -13,7 +13,7 @@ class ProjectConfig(BaseModel):
             raise ValueError("Project name cannot be empty.")
         return value
     
-    @field_validator("name")
+    @field_validator("version")
     def version_must_follow_format(cls, value):
         import re
         if not re.match(r"^\d+\.\d+\.\d+$", value):
