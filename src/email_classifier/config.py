@@ -8,6 +8,7 @@ class ProjectConfig(BaseModel):
 
 class PathsConfig(BaseModel):
     raw_data: str
+    file_type: str
 
 class Config(BaseModel):
     project: ProjectConfig
