@@ -3,5 +3,5 @@ project:
   version: "1.0.0"
 
 paths:
-  raw_data: "data/preprocessed_emails_dataset.csv"
+  file_path: "data/preprocessed_emails_dataset.csv"
   file_type: "csv"
