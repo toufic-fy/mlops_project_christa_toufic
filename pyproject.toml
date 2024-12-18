@@ -6,6 +6,9 @@ authors = ["christamatta <christa.matta17@gmail.com>", "touficfakhry <fakhrytouf
 packages = [{include = "email_classifier", from = "src"}]
 readme = "README.md"
 
+[tool.poetry.scripts]
+email-classifier = "email_classifier.main:main"
+
 [tool.poetry.dependencies]
 python = "^3.13"
 numpy = "^2.2.0"
@@ -19,6 +22,13 @@ omegaconf = "^2.3.0"
 fastapi = "^0.115.6"
 uvicorn = "^0.32.1"
 
+
+[tool.poetry.group.dev.dependencies]
+pdoc = "^15.0.1"
+mypy = "^1.13.0"
+ruff = "^0.8.3"
+pytest = "^8.3.4"
+invoke = "^2.2.0"
 
 [build-system]
 requires = ["poetry-core"]
