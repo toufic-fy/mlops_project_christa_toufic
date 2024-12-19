@@ -12,7 +12,7 @@ class BaseTextVectorizer(ABC):
         """
         Get feature names (vocabulary) from the vectorizer if it supports it.
         Raises an exception in case the vectorizer doesn't support it.
-        
+
         Returns:
             List[str]: A list of feature names.
         """

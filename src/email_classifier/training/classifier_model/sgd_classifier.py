@@ -4,7 +4,7 @@ from typing import Dict, Any
 
 class SGDTextClassifier(BaseClassifier):
     """SGD Classifier implementation."""
-    
+
     def get_classifier(self, **kwargs) -> SGDClassifier:
         """Return an SGDClassifier instance."""
         return SGDClassifier(**kwargs)

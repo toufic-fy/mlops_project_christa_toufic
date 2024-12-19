@@ -4,7 +4,7 @@ from typing import Dict, Any
 
 class LogisticTextClassifier(BaseClassifier):
     """SGD Classifier implementation."""
-    
+
     def get_classifier(self, **kwargs) -> LogisticRegression:
         """Return an SGDClassifier instance."""
         return LogisticRegression(**kwargs)

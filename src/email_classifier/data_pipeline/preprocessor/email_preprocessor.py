@@ -4,7 +4,7 @@ from .base_preprocessor import BasePreprocessor
 class EmailPreprocessor(BasePreprocessor):
     """Preprocessor for email data."""
 
-    def preprocess(df: pd.DataFrame) -> pd.DataFrame:
+    def preprocess(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Preprocess the email dataset.
 
@@ -21,18 +21,18 @@ class EmailPreprocessor(BasePreprocessor):
         # TODO: next major - add ability to config datasource parsing options
         # Drop missing values
         df = df.dropna(subset=["label", "body"])
-        
+
         # Separate phishing and safe emails
         phishing_emails = df[df["label"] == 1]
         safe_emails = df[df["label"] == 0]
-        
+
         # Balance the dataset by sampling phishing emails
         if phishing_emails.shape[0] > safe_emails.shape[0]:
             phishing_emails = phishing_emails.sample(safe_emails.shape[0], random_state=42)
         elif safe_emails.shape[0] > phishing_emails.shape[0]:
             safe_emails = safe_emails.sample(phishing_emails.shape[0], random_state=42)
-        
+
         # Combine the balanced datasets
         balanced_df = pd.concat([phishing_emails, safe_emails], axis=0).reset_index(drop=True)
-        
+
         return balanced_df
