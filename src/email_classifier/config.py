@@ -29,7 +29,7 @@ class ProjectConfig(BaseModel):
             raise ValueError("Version must follow semantic versioning (e.g., 1.0.0).")
         return value
 
-class PathsConfig(BaseModel):
+class DataConfig(BaseModel):
     file_path: str = Field(..., description="Path to the dataset file")
     file_type: FileType = Field(..., description="Type of the dataset file")
 
@@ -65,7 +65,9 @@ class ClassificationConfig(BaseModel):
 
 class Config(BaseModel):
     project: ProjectConfig
-    paths: PathsConfig
+    data: DataConfig
+    vectorization: VectorizationConfig
+    classification: ClassificationConfig
 
 def load_config(config_path: str = "config.yaml") -> Config:
     """
