@@ -67,8 +67,10 @@ class Config(BaseModel):
     project: ProjectConfig
     paths: PathsConfig
 
-# Function to load the config.yaml file
 def load_config(config_path: str = "config.yaml") -> Config:
+    """
+    Loads the config from a given path. By default it loads ./config.yaml
+    """
     try:
         # Load the YAML file with OmegaConf
         raw_config = OmegaConf.load(config_path)
