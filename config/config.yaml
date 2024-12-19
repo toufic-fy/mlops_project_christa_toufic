@@ -5,3 +5,17 @@ project:
 paths:
   file_path: "data/preprocessed_emails_dataset.csv"
   file_type: "csv"
+
+vectorization:
+  type: "tfidf"
+  params:
+    max_features: 1000
+    stop_words: "english"
+
+classification:
+  type: "sgd"
+  params:
+    loss: ["hinge", "log"]
+    alpha: [0.0001, 0.001] 
+    max_iter: [1000, 2000]
+    tol: [0.001, 0.0001]
