@@ -1,6 +1,5 @@
 # src/email_classifier/data_loader/base_loader.py
 from abc import ABC, abstractmethod
-from typing import List
 from ..preprocessor.base_preprocessor import BasePreprocessor
 import pandas as pd
 
