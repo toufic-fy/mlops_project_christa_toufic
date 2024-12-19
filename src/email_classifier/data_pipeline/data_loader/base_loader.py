@@ -19,13 +19,13 @@ class DataLoader(ABC):
         """
         pass
 
-    def load_and_preprocess_data(self, file_path: str,  preprocessors: list[BasePreprocessor] = None) -> pd.DataFrame:
+    def load_and_preprocess_data(self, file_path: str,  preprocessors: list[BasePreprocessor] | None = None) -> pd.DataFrame:
             """
             Load and preprocess the email dataset.
 
             Args:
                 file_path (str): Path to the CSV file.
-                preprocessor (BasePreprocessor, optional): Preprocessor instance for preprocessing the data. 
+                preprocessor (BasePreprocessor, optional): Preprocessor instance for preprocessing the data.
                                                         Defaults to None.
 
             Returns:
@@ -33,9 +33,9 @@ class DataLoader(ABC):
             """
             # Load the raw dataset
             df = self.load_data(file_path)
-            
+
             if preprocessors:
                 for preprocessor in preprocessors:
                     df = preprocessor.preprocess(df)
-            
+
             return df

@@ -2,7 +2,6 @@
 import pandas as pd
 from .base_loader import DataLoader
 
-
 class CSVLoader(DataLoader):
     """A data loader for loading CSV files."""
 
@@ -12,7 +11,7 @@ class CSVLoader(DataLoader):
 
             Args:
                 file_path (str): Path to the CSV file.
-                preprocessor (BasePreprocessor, optional): Preprocessor instance for preprocessing the data. 
+                preprocessor (BasePreprocessor, optional): Preprocessor instance for preprocessing the data.
                                                         Defaults to None.
 
             Returns:

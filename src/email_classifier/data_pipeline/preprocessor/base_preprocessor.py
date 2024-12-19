@@ -11,7 +11,7 @@ class BasePreprocessor(ABC):
 
         Args:
             df (pd.DataFrame): Input DataFrame.
-        
+
         Returns:
             pd.DataFrame: Preprocessed DataFrame.
         """

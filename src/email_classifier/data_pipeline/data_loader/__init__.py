@@ -1,4 +1,4 @@
-# src/email_classifer/data_loader/__init__.py 
+# src/email_classifer/data_loader/__init__.py
 from .csv_loader import CSVLoader
 from .factory import DataLoaderFactory
 from .json_loader import JSONLoader

@@ -3,7 +3,7 @@ from typing import Any, Dict
 
 class BaseClassifier(ABC):
     """Abstract base class for classifiers."""
-    
+
     @abstractmethod
     def get_classifier(self, **kwargs) -> Any:
         """Return an instance of the classifier."""
