@@ -1,7 +1,7 @@
 from omegaconf import OmegaConf
-from pydantic import BaseModel, Field, ValidationError, field_validator, FieldValidationInfo
+from pydantic import BaseModel, Field, ValidationError, field_validator
 from enum import Enum
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Any, cast
 class FileType(str, Enum):
     csv = "csv"
 
@@ -21,7 +21,7 @@ class ProjectConfig(BaseModel):
         if not value.strip():
             raise ValueError("Project name cannot be empty.")
         return value
-    
+
     @field_validator("version")
     def version_must_follow_format(cls, value):
         import re
@@ -46,7 +46,7 @@ class VectorizationConfig(BaseModel):
     )
 
     @field_validator("params", mode="before")
-    def validate_vectorizer_params(cls, params, info: FieldValidationInfo):
+    def validate_vectorizer_params(cls, params, info):
         if info.data["type"] == "tfidf" and "max_features" not in params:
             raise ValueError("For tfidf vectorizer, 'max_features' must be specified in params.")
         return params
@@ -58,7 +58,7 @@ class ClassificationConfig(BaseModel):
     )
 
     @field_validator("params")
-    def validate_classifier_params(cls, params, info: FieldValidationInfo):
+    def validate_classifier_params(cls, params, info):
         if info.data["type"] == "sgd" and "alpha" not in params:
             raise ValueError("For sgd classifier, 'alpha' must be specified in params.")
         return params
@@ -69,7 +69,7 @@ class Config(BaseModel):
     vectorization: VectorizationConfig
     classification: ClassificationConfig
 
-def load_config(config_path: str = "config.yaml") -> Config:
+def load_config(config_path: str = "config.yaml") -> Config | None:
     """
     Loads the config from a given path. By default it loads ./config.yaml
     """
@@ -77,6 +77,16 @@ def load_config(config_path: str = "config.yaml") -> Config:
         # Load the YAML file with OmegaConf
         raw_config = OmegaConf.load(config_path)
         # Convert the OmegaConf object to a dictionary and validate with Pydantic
-        return Config(**OmegaConf.to_container(raw_config, resolve=True))
+        config_container = cast(Dict[str, Any], OmegaConf.to_container(raw_config, resolve=True))
+
+
+        if not isinstance(config_container, dict):
+            raise TypeError(f"Expected a dictionary, but got {type(config_container)}")
+
+        return Config(**config_container)
     except ValidationError as ve:
         print(f"error loading config: {ve}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+    return None
