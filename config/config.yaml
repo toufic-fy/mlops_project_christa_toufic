@@ -2,7 +2,7 @@ project:
   name: "email_classifier"
   version: "1.0.0"
 
-paths:
+data:
   file_path: "data/preprocessed_emails_dataset.csv"
   file_type: "csv"
 

@@ -1,5 +1,5 @@
 from omegaconf import OmegaConf
-from pydantic import BaseModel, Field, ValidationError, field_validator
+from pydantic import BaseModel, Field, ValidationError, field_validator, FieldValidationInfo
 from enum import Enum
 from typing import List, Dict, Union
 class FileType(str, Enum):
@@ -29,7 +29,7 @@ class ProjectConfig(BaseModel):
             raise ValueError("Version must follow semantic versioning (e.g., 1.0.0).")
         return value
 
-class PathsConfig(BaseModel):
+class DataConfig(BaseModel):
     file_path: str = Field(..., description="Path to the dataset file")
     file_type: FileType = Field(..., description="Type of the dataset file")
 
@@ -45,30 +45,34 @@ class VectorizationConfig(BaseModel):
         description="Parameters for the vectorizer (e.g., max_features, stop_words)"
     )
 
-    @field_validator("params", always=True)
-    def validate_vectorizer_params(cls, params, values):
-        if values["type"] == "tfidf" and "max_features" not in params:
+    @field_validator("params", mode="before")
+    def validate_vectorizer_params(cls, params, info: FieldValidationInfo):
+        if info.data["type"] == "tfidf" and "max_features" not in params:
             raise ValueError("For tfidf vectorizer, 'max_features' must be specified in params.")
         return params
 class ClassificationConfig(BaseModel):
     type: ClassifierType = Field(..., description="Type of classifier (e.g., sgd, logistic)")
-    params: Dict[str, List[Union[int, float, str]]] = Field(
+    params: Dict[str, List[Union[int, float, str, str]]] = Field(
         default_factory=dict,
         description="Hyperparameters for the classifier (e.g., alpha, max_iter, tol)"
     )
 
-    @field_validator("params", always=True)
-    def validate_classifier_params(cls, params, values):
-        if values["type"] == "sgd" and "alpha" not in params:
+    @field_validator("params")
+    def validate_classifier_params(cls, params, info: FieldValidationInfo):
+        if info.data["type"] == "sgd" and "alpha" not in params:
             raise ValueError("For sgd classifier, 'alpha' must be specified in params.")
         return params
 
 class Config(BaseModel):
     project: ProjectConfig
-    paths: PathsConfig
+    data: DataConfig
+    vectorization: VectorizationConfig
+    classification: ClassificationConfig
 
-# Function to load the config.yaml file
 def load_config(config_path: str = "config.yaml") -> Config:
+    """
+    Loads the config from a given path. By default it loads ./config.yaml
+    """
     try:
         # Load the YAML file with OmegaConf
         raw_config = OmegaConf.load(config_path)
