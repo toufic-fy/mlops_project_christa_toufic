@@ -18,13 +18,13 @@ class EmailPreprocessor(BasePreprocessor):
         Returns:
             pd.DataFrame: Preprocessed and balanced DataFrame.
         """
-        # TODO: next major - add ability to config datasource parsing
+        # TODO: next major - add ability to config datasource parsing options
         # Drop missing values
         df = df.dropna(subset=["label", "body"])
         
         # Separate phishing and safe emails
-        phishing_emails = df[df["label"] == "Phishing"]
-        safe_emails = df[df["label"] == "Safe"]
+        phishing_emails = df[df["label"] == 1]
+        safe_emails = df[df["label"] == 0]
         
         # Balance the dataset by sampling phishing emails
         if phishing_emails.shape[0] > safe_emails.shape[0]:
