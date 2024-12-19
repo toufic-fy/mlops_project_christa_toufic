@@ -1,8 +1,17 @@
 from omegaconf import OmegaConf
 from pydantic import BaseModel, Field, ValidationError, field_validator
 from enum import Enum
+from typing import List, Dict, Union
 class FileType(str, Enum):
     csv = "csv"
+
+class VectorizerType(str, Enum):
+    tfidf = "tfidf"
+    bow = "bow"
+
+class ClassifierType(str, Enum):
+    sgd = "sgd"
+    logistic = "logistic"
 class ProjectConfig(BaseModel):
     name: str
     version: str
@@ -29,6 +38,30 @@ class PathsConfig(BaseModel):
         if not value.strip():
             raise ValueError("Path to raw_data cannot be empty.")
         return value
+class VectorizationConfig(BaseModel):
+    type: VectorizerType = Field(..., description="Type of vectorizer (e.g., tfidf, bow)")
+    params: Dict[str, Union[int, str]] = Field(
+        default_factory=dict,
+        description="Parameters for the vectorizer (e.g., max_features, stop_words)"
+    )
+
+    @field_validator("params", always=True)
+    def validate_vectorizer_params(cls, params, values):
+        if values["type"] == "tfidf" and "max_features" not in params:
+            raise ValueError("For tfidf vectorizer, 'max_features' must be specified in params.")
+        return params
+class ClassificationConfig(BaseModel):
+    type: ClassifierType = Field(..., description="Type of classifier (e.g., sgd, logistic)")
+    params: Dict[str, List[Union[int, float, str]]] = Field(
+        default_factory=dict,
+        description="Hyperparameters for the classifier (e.g., alpha, max_iter, tol)"
+    )
+
+    @field_validator("params", always=True)
+    def validate_classifier_params(cls, params, values):
+        if values["type"] == "sgd" and "alpha" not in params:
+            raise ValueError("For sgd classifier, 'alpha' must be specified in params.")
+        return params
 
 class Config(BaseModel):
     project: ProjectConfig
