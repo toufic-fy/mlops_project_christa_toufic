@@ -4,14 +4,14 @@ description: Setup for project workflows
 runs:
  using: composite
 
- steps:
-      - run: python -m pip install --user pipx
-        shell: bash
+steps:
+    - run: python -m pip install --user pipx
+      shell: bash
 
-      - run: pipx install poetry
-        shell: bash
-      
-      - uses: action/setup-python@v5
-        with:
-          python-version: '>=3.13'
-          cache: poetry
+    - run: pipx install poetry
+      shell: bash
+    
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '>=3.13'
+        cache: poetry
