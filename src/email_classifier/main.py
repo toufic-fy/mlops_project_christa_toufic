@@ -8,7 +8,7 @@ from .data_pipeline.preprocessor.email_preprocessor import EmailPreprocessor
 from .data_pipeline.data_loader.factory import DataLoaderFactory
 from .data_pipeline.vectorizer.factory import VectorizerFactory
 from .training.classifier_model.factory import ClassifierFactory
-from .training.trainer import Trainer
+from .training.trainer.trainer import Trainer
 
 logger.add("logs/main_pipeline.log", rotation="500 MB")
 
