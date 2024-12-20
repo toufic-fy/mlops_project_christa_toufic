@@ -15,7 +15,7 @@ vectorization:
 classification:
   type: "sgd"
   params:
-    loss: ["hinge", "log"]
+    loss: ["hinge", "log_loss"]
     alpha: [0.0001, 0.001] 
     max_iter: [1000, 2000]
     tol: [0.001, 0.0001]

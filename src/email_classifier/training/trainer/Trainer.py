@@ -1,12 +1,13 @@
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from ...data_pipeline.vectorizer.base_text_vectorizer import BaseTextVectorizer as Vectorizer
 import pandas as pd
 
 class Trainer:
     """Handles training and evaluation of classifiers."""
-    
-    def __init__(self, classifier, vectorizer, hyperparams=None):
+
+    def __init__(self, classifier, vectorizer: Vectorizer, hyperparams=None):
         """
         Initialize the trainer.
 
