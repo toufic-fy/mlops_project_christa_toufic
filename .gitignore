@@ -19,3 +19,6 @@ Thumbs.db
 
 #loguru logs
 logs/*
+
+#pdoc docs
+docs/*
