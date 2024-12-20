@@ -5,9 +5,9 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 
 
-MLRUNS_ID = "1SwgZPy9V6Q-_zTGcEN7bGWUGQWS3OFjT"  
+MLRUNS_ID = "1SwgZPy9V6Q-_zTGcEN7bGWUGQWS3OFjT"
 DB_ID = "1YjynBatGkMPLhOYPiSmZ4HrNr7T0S4N8"
-DATASET_ID = "1V-TFy-ZS5EufUPkxEk2wG3sh3HYEEO-b" 
+DATASET_ID = "1V-TFy-ZS5EufUPkxEk2wG3sh3HYEEO-b"
 
 BASE_URL = "https://drive.google.com/uc?id={}&export=download"
 MLRUNS_URL = BASE_URL.format(MLRUNS_ID)
@@ -85,7 +85,7 @@ def main():
 
         for future in futures:
             future.result()
-        
+
     if download_mlflow_data and os.path.exists(MLRUNS_FILE):
         extract_mlruns()
 
