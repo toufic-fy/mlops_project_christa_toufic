@@ -19,4 +19,5 @@ class TrainingPipeline(BasePipeline):
         self.logger.debug(f"Accuracy: {eval["accuracy"]}")
         self.logger.debug(f"Classification Report: {self.pd.DataFrame(eval["classification_report"]).transpose()}")
         self.logger.debug(f"Confusion Matrix: {eval["confusion_matrix"]}")
+        return eval
 

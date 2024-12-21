@@ -12,7 +12,7 @@ def main(config: Config):
     data = pipeline.load_data(file_type=config.data.file_type, file_path=config.data.file_path)
     print("✅ Data loading and preprocessing done, running inference...")
 
-    pipeline.run(data=data)
+    pipeline.run(data=data["body"].to_list())
 
 if __name__ == "__main__":
     main()
