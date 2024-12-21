@@ -16,18 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '>=3.13'
-
-      - name: Install pipx
-        run: python -m pip install --user pipx
-        shell: bash
-
-      - name: Install Poetry
-        run: pipx install poetry
-        shell: bash
+      - name: Project setup
+        uses: ./.github/actions/setup
 
       - name: Install Dependencies
         run: poetry install
