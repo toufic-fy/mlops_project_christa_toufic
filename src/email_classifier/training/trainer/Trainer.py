@@ -74,11 +74,11 @@ class Trainer:
         report = classification_report(y_test, y_pred, output_dict=True)
         confusion = confusion_matrix(y_test, y_pred)
 
-        print(f"Accuracy: {accuracy}")
-        print("Classification Report:")
-        print(pd.DataFrame(report).transpose())
-        print("Confusion Matrix:")
-        print(confusion)
+        # print(f"Accuracy: {accuracy}")
+        # print("Classification Report:")
+        # print(pd.DataFrame(report).transpose())
+        # print("Confusion Matrix:")
+        # print(confusion)
 
         return {
             "accuracy": accuracy,
