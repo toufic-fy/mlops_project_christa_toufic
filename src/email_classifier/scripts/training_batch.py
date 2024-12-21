@@ -1,14 +1,14 @@
-# src/
+# src/scripts/training_batch.py
 import argparse
 from loguru import logger
 from dotenv import load_dotenv
-from email_classifier.config import load_config
+from ..config import load_config
 from sklearn.model_selection import train_test_split
-from .data_pipeline.preprocessor.email_preprocessor import EmailPreprocessor
-from .data_pipeline.data_loader.factory import DataLoaderFactory
-from .data_pipeline.vectorizer.factory import VectorizerFactory
-from .training.classifier_model.factory import ClassifierFactory
-from .training.trainer.trainer import Trainer
+from ..data_handling.preprocessor.email_preprocessor import EmailPreprocessor
+from ..data_handling.data_loader.factory import DataLoaderFactory
+from ..data_handling.vectorizer.factory import VectorizerFactory
+from ..training.classifier_model.factory import ClassifierFactory
+from ..training.trainer.trainer import Trainer
 
 logger.add("logs/main_pipeline.log", rotation="500 MB")
 

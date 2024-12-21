@@ -7,7 +7,7 @@ packages = [{include = "email_classifier", from = "src"}]
 readme = "README.md"
 
 [tool.poetry.scripts]
-email-classifier = "email_classifier.main:main"
+email-classifier = "email_classifier.scripts.inferance_batch:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"
