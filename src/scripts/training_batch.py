@@ -1,5 +1,5 @@
-from ..config import Config
-from ..app_core import load_pipeline
+from email_classifier.config import Config
+from email_classifier.app_core import load_pipeline
 
 def main(config: Config):
     print("✅ Starting training pipeline")
@@ -11,7 +11,7 @@ def main(config: Config):
 
     data = pipeline.load_data(file_type=config.data.file_type, file_path=config.data.file_path)
     print("✅ Data loading and preprocessing done, running inference...")
-    print(data["body"])
+
     pipeline.run(data=data["body"], labels=data["label"])
     print("✅ Training and evaluation successfully done")
 

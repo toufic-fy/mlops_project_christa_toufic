@@ -1,5 +1,5 @@
-from ..config import Config
-from ..app_core import load_pipeline
+from email_classifier.config import Config
+from email_classifier.app_core import load_pipeline
 
 def main(config: Config):
     print("✅ Starting inference pipeline")

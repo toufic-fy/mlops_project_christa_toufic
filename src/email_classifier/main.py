@@ -1,8 +1,8 @@
 import argparse
 from loguru import logger
 from email_classifier.config import load_config
-from email_classifier.scripts.training_batch import main as training_main
-from email_classifier.scripts.inference_batch import main as inference_main
+from scripts.training_batch import main as training_main
+from scripts.inference_batch import main as inference_main
 
 parser = argparse.ArgumentParser(description="Run the Email Classifier pipeline.")
 logger.add("logs/main_pipeline.log", rotation="500 MB")
