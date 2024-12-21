@@ -4,7 +4,7 @@ from invoke.tasks import task
 @task
 def test(ctx: Context) -> None:
     """Run all tests with pytest."""
-    ctx.run("poetry run pytest tests/")
+    ctx.run("poetry run pytest src/tests/")
 
 @task
 def lint(ctx: Context) -> None:
