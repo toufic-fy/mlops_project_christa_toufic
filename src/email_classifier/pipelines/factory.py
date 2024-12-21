@@ -5,7 +5,7 @@ from ..data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer
 
 class PipelineFactory:
     @staticmethod
-    def get_pipeline(pipeline_type, model: BaseClassifier, vectorizer: BaseTextVectorizer):
+    def get_pipeline(pipeline_type: str, model: BaseClassifier, vectorizer: BaseTextVectorizer):
         if pipeline_type == "training":
             return TrainingPipeline(model, vectorizer)
         elif pipeline_type == "inference":

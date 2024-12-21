@@ -2,7 +2,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from ...data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer as Vectorizer
-import pandas as pd
+from ..classifier_model.base_classifier import BaseClassifier
 
 class Trainer:
     """Handles training and evaluation of classifiers."""
@@ -20,7 +20,7 @@ class Trainer:
         self.vectorizer = vectorizer
         self.hyperparams = hyperparams or classifier.get_hyperparameters()
 
-    def train(self, X_train, y_train):
+    def train(self, X_train: list[str], y_train: list):
         """
         Train the model using GridSearchCV.
 
@@ -54,7 +54,7 @@ class Trainer:
 
         return grid_search.best_estimator_
 
-    def evaluate(self, model, X_test, y_test):
+    def evaluate(self, model: BaseClassifier, X_test: list[str], y_test: list):
         """
         Evaluate the trained model.
 

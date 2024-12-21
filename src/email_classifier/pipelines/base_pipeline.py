@@ -4,6 +4,8 @@ from loguru import logger
 
 from ..training.classifier_model.base_classifier import BaseClassifier
 from ..data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer
+from ..data_handling.data_loader.factory import DataLoaderFactory
+from ..data_handling.preprocessor.email_preprocessor import EmailPreprocessor
 
 class BasePipeline(ABC):
     def __init__(self, model: BaseClassifier, vectorizer: BaseTextVectorizer):
@@ -16,8 +18,9 @@ class BasePipeline(ABC):
         """Load data based on the provided file path."""
         # Implement shared data loading logic here
         print(f"Loading data from {file_path}")
-        # Replace with actual data loading logic
-        return []
+        loader = DataLoaderFactory.get_data_loader(file_type)
+        # TODO: next major - make preprocessors configurable
+        return loader.load_and_preprocess_data(file_path, [EmailPreprocessor()])
 
     @abstractmethod
     def run(self, *args, **kwargs):
