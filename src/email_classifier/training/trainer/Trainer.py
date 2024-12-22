@@ -2,7 +2,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from ...data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer as Vectorizer
-from ..classifier_model.base_classifier import BaseClassifier
 
 class Trainer:
     """Handles training and evaluation of classifiers."""
