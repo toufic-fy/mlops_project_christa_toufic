@@ -1,60 +1,47 @@
-# src/
 import argparse
 from loguru import logger
-from dotenv import load_dotenv
 from email_classifier.config import load_config
-from sklearn.model_selection import train_test_split
-from .data_pipeline.preprocessor.email_preprocessor import EmailPreprocessor
-from .data_pipeline.data_loader.factory import DataLoaderFactory
-from .data_pipeline.vectorizer.factory import VectorizerFactory
-from .training.classifier_model.factory import ClassifierFactory
-from .training.trainer.trainer import Trainer
+from scripts.training_batch import main as training_main
+from scripts.inference_batch import main as inference_main
 
+parser = argparse.ArgumentParser(description="Run the Email Classifier pipeline.")
 logger.add("logs/main_pipeline.log", rotation="500 MB")
 
-load_dotenv()
-def parse_args():
-    """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(description="Run the email classifier application.")
+def parse_command_args():
     parser.add_argument(
         "--config-path",
         type=str,
+        required=False,
         default="config/config.yaml",
-        help="Path to the configuration file (default: config/config.yaml)",
+        help="Path to the configuration file (YAML format). Default is config/config.yaml",
+    )
+    parser.add_argument(
+        "--script",
+        type=str,
+        choices=["training", "inference"],
+        required=True,
+        help="Which script to run: 'training' or 'inference'.",
     )
     return parser.parse_args()
 
 def main():
-    args = parse_args()
     try:
-        #load config
+        args = parse_command_args()
+        # Load configuration
         config = load_config(args.config_path)
+        if not config:
+            print("Failed to load configuration.")
+            return
 
-        # Step 1: Load and preprocess data
-        data_loader = DataLoaderFactory.get_data_loader(config.data.file_type)
-        print("✅ Data loading done")
-        data = data_loader.load_and_preprocess_data(file_path=config.data.file_path, preprocessors=[EmailPreprocessor()])
-        print("✅ Data preprocessing done")
-
-        vectorizer = VectorizerFactory.get_vectorizer(config.vectorization.type, **config.vectorization.params)
-        # vectorized_emails: list[str] = vectorizer.vectorize(data["body"].to_list())
-
-        # Step 2: Training preps
-        # TODO: next major - make test_size, stratify and radom_seed configurable
-        X_train, X_test, y_train, y_test = train_test_split(data["body"], data["label"], test_size=0.2, random_state=42)
-        print("✅ Training preparations done, starting training...")
-
-        # Step 3: Train and evaluate the model
-        classifier = ClassifierFactory.get_classifier(config.classification.type)
-        trainer = Trainer(classifier, vectorizer)
-
-        trained_model = trainer.train(X_train.tolist(), y_train.tolist())
-
-        _ = trainer.evaluate(trained_model, X_test.tolist(), y_test.tolist())
-        logger.info("Pipeline execution completed successfully.")
-        # pred = trained_model.predict(X_test)
-        # cf_matrix = confusion_matrix(y_test, pred)
-        # sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Blues')
+        # Determine which script to run
+        if args.script == "training":
+            print("Running training script...")
+            training_main(config)
+        elif args.script == "inference":
+            print("Running inference script...")
+            inference_main(config)
+        else:
+            print(f"Unknown script: {args.script}")
 
     except FileNotFoundError as f:
         print(f"❌ Error: Configuration file not found at {args.config_path}")
