@@ -54,7 +54,7 @@ class Trainer:
 
         return grid_search.best_estimator_
 
-    def evaluate(self, model: BaseClassifier, X_test: list[str], y_test: list):
+    def evaluate(self, model, X_test: list[str], y_test: list):
         """
         Evaluate the trained model.
 

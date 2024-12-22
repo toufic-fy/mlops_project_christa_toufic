@@ -1,7 +1,10 @@
 from email_classifier.config import Config
 from email_classifier.app_core import load_pipeline
+from email_classifier.config import load_config
 
-def main(config: Config):
+# TODO: next major - remove this default config fallback and create a base script with CLI wrapper
+def main(config: Config = load_config("config/config.yaml")):
+
     print("✅ Starting inference pipeline")
     pipeline = load_pipeline(
         pipeline_type="inference",

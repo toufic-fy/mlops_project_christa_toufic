@@ -2,13 +2,12 @@ from abc import ABC, abstractmethod
 import pandas as pd
 from loguru import logger
 
-from ..training.classifier_model.base_classifier import BaseClassifier
 from ..data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer
 from ..data_handling.data_loader.factory import DataLoaderFactory
 from ..data_handling.preprocessor.email_preprocessor import EmailPreprocessor
 
 class BasePipeline(ABC):
-    def __init__(self, model: BaseClassifier, vectorizer: BaseTextVectorizer):
+    def __init__(self, model, vectorizer: BaseTextVectorizer):
         self._model = model
         self._vectorizer = vectorizer
         self.logger = logger
