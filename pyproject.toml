@@ -3,11 +3,15 @@ name = "email-classifier"
 version = "0.1.0"
 description = ""
 authors = ["christamatta <christa.matta17@gmail.com>", "touficfakhry <fakhrytoufic6@gmail.com>"]
-packages = [{include = "email_classifier", from = "src"}]
+packages = [
+    {include = "email_classifier", from = "src"},
+    {include = "setup_scripts", from = "src"}
+]
 readme = "README.md"
 
 [tool.poetry.scripts]
 email-classifier = "email_classifier.main:main"
+data-download = "setup_scripts.download_mlflow_data_and_dataset:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"
@@ -30,6 +34,7 @@ mypy = "^1.13.0"
 ruff = "^0.8.3"
 pytest = "^8.3.4"
 invoke = "^2.2.0"
+types-requests = "^2.32.0.20241016"
 
 [tool.ruff]
 line-length = 88

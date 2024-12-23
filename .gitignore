@@ -22,3 +22,6 @@ logs/*
 
 #pdoc docs
 docs/*
+
+#poetry build files
+dist/
