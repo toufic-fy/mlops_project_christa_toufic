@@ -26,6 +26,9 @@ COPY pyproject.toml poetry.lock ./
 # Install dependencies, including the application itself
 RUN poetry install --no-dev
 
+# Copy the application source code
+COPY . .
+
 # Stage 2: Final runtime image
 FROM python:3.13-slim AS runtime
 
@@ -45,6 +48,7 @@ COPY --from=base /app /app
 # Set working directory
 WORKDIR /app
 
+# Add Python path for the application
 ENV PYTHONPATH="/app/src"
 
 # Expose the port used by FastAPI
