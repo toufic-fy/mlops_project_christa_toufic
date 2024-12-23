@@ -8,3 +8,10 @@ class InferenceRequest(BaseModel):
 class InferenceResponse(BaseModel):
     prediction: int
     confidence: float
+
+class TrainingRequest(BaseModel):
+    config_path: str
+
+class TrainingResponse(BaseModel):
+    status: str
+    message: str
