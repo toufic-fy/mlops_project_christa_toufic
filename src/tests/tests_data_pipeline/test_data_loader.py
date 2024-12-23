@@ -1,8 +1,8 @@
 import pytest
 import pandas as pd
 from unittest.mock import patch
-from email_classifier.data_pipeline.data_loader.csv_loader import CSVLoader
-from email_classifier.data_pipeline.preprocessor.email_preprocessor import EmailPreprocessor
+from email_classifier.data_handling.data_loader.csv_loader import CSVLoader
+from email_classifier.data_handling.preprocessor.email_preprocessor import EmailPreprocessor
 
 @pytest.fixture
 def sample_csv_file(tmp_path):

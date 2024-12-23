@@ -69,7 +69,7 @@ class Config(BaseModel):
     vectorization: VectorizationConfig
     classification: ClassificationConfig
 
-def load_config(config_path: str = "config.yaml") -> Config | None:
+def load_config(config_path: str = "config.yaml") -> Config:
     """
     Loads the config from a given path. By default it loads ./config.yaml
     """
@@ -85,8 +85,6 @@ def load_config(config_path: str = "config.yaml") -> Config | None:
 
         return Config(**config_container)
     except ValidationError as ve:
-        print(f"error loading config: {ve}")
+        raise ValidationError(f"load config error: {ve}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
-
-    return None
+        raise Exception(f"load config error: {e}")
