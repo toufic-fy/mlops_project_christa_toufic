@@ -77,7 +77,7 @@ class MLFlowModel(BaseModel):
         if not value.strip():
             raise ValueError("MLflow model name cannot be empty.")
         return value
-    
+
     @field_validator("stage")
     def validate_model_stage(cls, value):
         if not value.strip():

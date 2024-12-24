@@ -2,8 +2,6 @@ from email_classifier.pipelines.factory import PipelineFactory
 from email_classifier.config import load_config, Config
 from functools import lru_cache
 from email_classifier.data_handling.data_loader.factory import DataLoaderFactory
-from email_classifier.training.classifier_model.factory import ClassifierFactory
-from email_classifier.data_handling.vectorizer.factory import VectorizerFactory
 
 @lru_cache()
 def get_config(config_path: str = "config/config.yaml") -> Config:
