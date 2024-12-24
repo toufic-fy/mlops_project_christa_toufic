@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks, Query
-from api.dependencies import get_pipeline, load_data
+from api.dependencies import get_config, get_pipeline, load_data, get_experiment_name
 from api.schemas import InferenceRequest, InferenceResponse, TrainingResponse
 
 
@@ -19,7 +19,8 @@ def health_check():
 @router.post("/inference", tags=["Inference"], response_model=InferenceResponse)
 def inference(
     request: InferenceRequest,
-    pipeline=Depends(lambda: get_pipeline("inference"))
+    config=Depends(get_config),
+    pipeline=Depends(lambda config=Depends(get_config): get_pipeline("inference", config)),
 ):
     """
     Perform inference on the given email body.
@@ -44,9 +45,11 @@ def train(
     Perform training in the background and return success if the job started.
     """
     try:
-        data = load_data(config_path=config_path)
-        pipeline= get_pipeline("training", config_path=config_path)
-        background_tasks.add_task(pipeline.run, data=data["body"], labels=data["label"])
+        config = get_config(config_path)
+        data = load_data(config)
+        experiment_name = get_experiment_name(config)
+        pipeline = get_pipeline("training", config)
+        background_tasks.add_task(pipeline.run, data=data["body"], labels=data["label"], experiment_name=experiment_name)
         return TrainingResponse(status="success", message="Training pipeline successfully started")
     except Exception as e:
         print(f"error in train endpoint: {str(e)}")

@@ -23,3 +23,6 @@ classification:
 mlflow:
   tracking_uri: "http://localhost:5000"
   experiment_name: "Email Text Classification"
+  model:
+    name: "best_model"
+    stage: "Production"
