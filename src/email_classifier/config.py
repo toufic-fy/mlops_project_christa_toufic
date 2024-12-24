@@ -40,7 +40,7 @@ class DataConfig(BaseModel):
         if not value.strip():
             raise ValueError("Path to raw_data cannot be empty.")
         return value
-    
+
 class VectorizationConfig(BaseModel):
     type: VectorizerType = Field(..., description="Type of vectorizer (e.g., tfidf, bow)")
     params: Dict[str, Union[int, str]] = Field(
@@ -53,7 +53,7 @@ class VectorizationConfig(BaseModel):
         if info.data["type"] == "tfidf" and "max_features" not in params:
             raise ValueError("For tfidf vectorizer, 'max_features' must be specified in params.")
         return params
-    
+
 class ClassificationConfig(BaseModel):
     type: ClassifierType = Field(..., description="Type of classifier (e.g., sgd, logistic)")
     params: Dict[str, List[Union[int, float, str, str]]] = Field(
@@ -71,7 +71,7 @@ class ClassificationConfig(BaseModel):
 class MLflowConfig(BaseModel):
     tracking_uri: str
     experiment_name: str
-    
+
     @field_validator("tracking_uri")
     def validate_tracking_uri(cls, value):
         # Ensure the tracking URI is not empty and starts with "http://"
@@ -87,7 +87,7 @@ class MLflowConfig(BaseModel):
         if not value.strip():
             raise ValueError("MLflow experiment name cannot be empty.")
         return value
-    
+
 # Unified configuration class
 class Config(BaseModel):
     project: ProjectConfig

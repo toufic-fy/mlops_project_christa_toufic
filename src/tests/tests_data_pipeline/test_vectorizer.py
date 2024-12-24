@@ -1,5 +1,4 @@
 import pytest
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer as SklearnTfidfVectorizer
 from email_classifier.data_handling.vectorizer.base_text_vectorizer import BaseTextVectorizer
 from email_classifier.data_handling.vectorizer.bow_vectorizer import BOWVectorizer
 from email_classifier.data_handling.vectorizer.tfidf_vectorizer import TfidfVectorizer
