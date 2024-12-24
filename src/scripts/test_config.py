@@ -1,4 +1,4 @@
-from src.email_classifier.config import load_config
+from email_classifier.config import load_config
 
 # Load the configuration file
 config = load_config("config/config.yaml")
