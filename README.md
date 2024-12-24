@@ -87,7 +87,62 @@ DATASET_PATH=data/preprocessed_dataset.csv
 ### 4. Run the Dataset and MLflow Setup Script
 You can run the below script to download both the dataset in csv format and the MLFlow experiment data from the initial notebook experiment:
 ```bash
-poetry run python setup_scripts/download_mlflow_data_and_dataset.py
+poetry run data-download
 ```
 You can also chose to download either the dataset only using the `--dataset-only` argument, or the MLFlow data only using the `--mlflow-data-only` argument. 
 Use `--help` for detailed info.
+
+### 5. Running Training Batch and Inference Batch
+
+You can run the training pipeline on the dataset or the inference pipeline using the below commands:
+```bash
+poetry run email-classifier --script training
+```
+Use `--script inference` for inference.
+
+---
+
+### Model Evaluation and Tracking
+
+### 1. Running Training Batch and Inference Batch
+
+You can run the training pipeline on the dataset or the inference pipeline using the below commands:
+```bash
+poetry run email-classifier --script training
+```
+Use `--script inference` for inference.
+
+### 2. Using Docker and Docker Compose
+
+The project includes Docker and Docker Compose support for running the application and MLflow with minimal setup.
+
+**a. Install Docker Install Docker and Docker Compose if they are not already installed:**
+
+- **[Docker Installation Guide](https://docs.docker.com/engine/install/)**
+- **[Docker Compose Installation Guide](https://docs.docker.com/compose/install/)**
+
+**b. Persistent Data**
+
+Ensure the data/ directory exists in your project root. This directory is used for:
+
+- **Storing the SQLite database (mlflow.db).**
+- **Storing MLflow artifacts (mlruns/).**
+
+**c. Build and Run Containers**
+
+To build and run the containers:
+```bash
+docker-compose up --build
+```
+
+This starts the following services:
+
+- **Email Classifier API: Runs on http://localhost:8000.**
+- **MLflow Tracking Server: Runs on http://localhost:5000.**
+
+**d. Stop Services**
+
+To stop the services, run:
+```bash
+docker-compose down
+```
