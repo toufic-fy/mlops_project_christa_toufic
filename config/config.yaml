@@ -19,3 +19,7 @@ classification:
     alpha: [0.0001, 0.001] 
     max_iter: [1000, 2000]
     tol: [0.001, 0.0001]
+
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "Email Text Classification"
