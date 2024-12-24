@@ -12,6 +12,7 @@ readme = "README.md"
 [tool.poetry.scripts]
 email-classifier = "email_classifier.main:main"
 data-download = "setup_scripts.download_mlflow_data_and_dataset:main"
+api = "api.run_api:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"
