@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  email-classifier:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-classifier-app
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONPATH=/app/src
+    depends_on:
+      - mlflow
+    volumes:
+      - ./data:/app/data  # Mount data directory for sharing with the container
+    command: >
+      /app/.venv/bin/uvicorn api.app:app --host 0.0.0.0 --port 8000
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.15.0
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      MLFLOW_TRACKING_URI: http://127.0.0.1:5000
+    volumes:
+      - ./data/mlruns:/mlflow/mlruns
+      - ./data/mlflow.db:/mlflow/mlflow.db
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:///mlflow/mlflow.db
+      --default-artifact-root /mlflow/mlruns
+      --host 0.0.0.0
+      --port 5000
