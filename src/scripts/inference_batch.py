@@ -8,8 +8,7 @@ def main(config: Config = load_config("config/config.yaml")):
     print("✅ Starting inference pipeline")
     pipeline = load_pipeline(
         pipeline_type="inference",
-        vectorization_config=config.vectorization,
-        model_config=config.classification
+        config=Config
     )
 
     data = pipeline.load_data(file_type=config.data.file_type, file_path=config.data.file_path)

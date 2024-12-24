@@ -1,18 +1,14 @@
 from __future__ import annotations
 
-from email_classifier.config import VectorizationConfig, ClassificationConfig
-from email_classifier.data_handling.vectorizer.factory import VectorizerFactory
-from email_classifier.training.classifier_model.factory import ClassifierFactory
+from email_classifier.config import Config
 from email_classifier.pipelines.base_pipeline import BasePipeline
 from email_classifier.pipelines.factory import PipelineFactory
 
 
 def load_pipeline(pipeline_type: str,
-    vectorization_config: VectorizationConfig, model_config: ClassificationConfig
+    config: Config
 ) -> BasePipeline:
-    vectorizer = VectorizerFactory.get_vectorizer(vectorization_config.type, **vectorization_config.params)
-    model = ClassifierFactory.get_classifier(model_config.type)
-    return PipelineFactory.get_pipeline(pipeline_type, model, vectorizer)
+    return PipelineFactory.get_pipeline(pipeline_type, config)
 
 
 # class InferencePipeline:
