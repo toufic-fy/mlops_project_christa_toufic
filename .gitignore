@@ -25,3 +25,7 @@ docs/*
 
 #poetry build files
 dist/
+
+#mlflow 
+mlruns/
+mlflow.db
