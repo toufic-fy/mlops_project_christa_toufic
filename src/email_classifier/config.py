@@ -68,9 +68,26 @@ class ClassificationConfig(BaseModel):
         return params
 
 # MLflow configuration
+class MLFlowModel(BaseModel):
+    name: str
+    stage: str
+
+    @field_validator("name")
+    def validate_model_name(cls, value):
+        if not value.strip():
+            raise ValueError("MLflow model name cannot be empty.")
+        return value
+
+    @field_validator("stage")
+    def validate_model_stage(cls, value):
+        if not value.strip():
+            raise ValueError("MLflow model tag cannot be empty.")
+        return value
+
 class MLflowConfig(BaseModel):
     tracking_uri: str
     experiment_name: str
+    model: MLFlowModel
 
     @field_validator("tracking_uri")
     def validate_tracking_uri(cls, value):

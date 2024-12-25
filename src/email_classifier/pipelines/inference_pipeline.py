@@ -1,6 +1,16 @@
 from .base_pipeline import BasePipeline
+from sklearn.pipeline import Pipeline
 
 class InferencePipeline(BasePipeline):
+
+    @classmethod
+    def from_pipeline(cls, pipeline: Pipeline):
+        """
+        Alternative constructor to initialize the InferencePipeline from a combined pipeline.
+        """
+        model = pipeline.named_steps["classifier"]
+        vectorizer = pipeline.named_steps["vectorizer"]
+        return cls(model=model, vectorizer=vectorizer)
 
     def run(self, data: list[str], include_confidence: bool = False):
         """
