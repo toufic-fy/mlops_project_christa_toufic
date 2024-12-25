@@ -14,7 +14,7 @@ class PipelineFactory:
                 stage=config.mlflow.model.stage
             )
             if pipeline_type == "inference":
-                return InferencePipeline(pipeline=pipeline)
+                return InferencePipeline.from_pipeline(pipeline)
             elif pipeline_type == "training":
                 raise ValueError("Training pipeline cannot use a preloaded model.")
         else:
