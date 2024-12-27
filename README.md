@@ -11,11 +11,11 @@ This project implements an **Email Text Classification system** to identify phis
   - [Install Poetry](#install-poetry)
   - [Set Up the Environment](#set-up-the-environment)
   - [Run the Dataset and MLflow Setup Script](#run-the-dataset-and-mlflow-setup-script)
-<!-- - [Running the Application](#running-the-application)
-- [Model Evaluation and Tracking](#model-evaluation-and-tracking)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license) -->
+  - [Running the Application](#running-the-application)
+  <!-- - [Model Evaluation and Tracking](#model-evaluation-and-tracking)
+  - [Testing](#testing)
+  - [Contributing](#contributing)
+  - [License](#license) -->
 
 ---
 ## Introduction
@@ -92,14 +92,6 @@ poetry run data-download
 You can also chose to download either the dataset only using the `--dataset-only` argument, or the MLFlow data only using the `--mlflow-data-only` argument. 
 Use `--help` for detailed info.
 
-### 5. Running Training Batch and Inference Batch
-
-You can run the training pipeline on the dataset or the inference pipeline using the below commands:
-```bash
-poetry run email-classifier --script training
-```
-Use `--script inference` for inference.
-
 ---
 
 ### Model Evaluation and Tracking
@@ -112,7 +104,21 @@ poetry run email-classifier --script training
 ```
 Use `--script inference` for inference.
 
-### 2. Using Docker and Docker Compose
+### 2. Run the API server
+
+You can start the API server on http://localhost:8000 using the below command:
+
+```bash
+poetry run api
+```
+You can also specify the host and port:
+
+```bash
+potry run api --host 0.0.0.0 --port 8000
+```
+
+
+### 3. Using Docker and Docker Compose
 
 The project includes Docker and Docker Compose support for running the application and MLflow with minimal setup.
 
