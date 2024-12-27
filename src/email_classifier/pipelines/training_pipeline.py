@@ -1,7 +1,7 @@
 from .base_pipeline import BasePipeline
 from sklearn.model_selection import train_test_split
 from ..training.trainer.trainer import Trainer
-from src.utils.mlf_utils import save_model_with_vectorizer
+from utils.mlf_utils import save_model_with_vectorizer
 import mlflow
 import mlflow.sklearn
 import pandas as pd

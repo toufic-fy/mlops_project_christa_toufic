@@ -3,7 +3,7 @@ from .training_pipeline import TrainingPipeline
 from .inference_pipeline import InferencePipeline
 from ..data_handling.vectorizer.factory import VectorizerFactory
 from ..training.classifier_model.factory import ClassifierFactory
-from src.utils.mlf_utils import load_model_pipeline, configure_mlflow
+from utils.mlf_utils import load_model_pipeline, configure_mlflow
 class PipelineFactory:
     @staticmethod
     def get_pipeline(pipeline_type: PipelineType, config: Config):

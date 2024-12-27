@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from email_classifier.config import Config
+from email_classifier.config import Config, PipelineType
 from email_classifier.pipelines.base_pipeline import BasePipeline
 from email_classifier.pipelines.factory import PipelineFactory
 
 
-def load_pipeline(pipeline_type: str,
+def load_pipeline(pipeline_type: PipelineType,
     config: Config
 ) -> BasePipeline:
     return PipelineFactory.get_pipeline(pipeline_type, config)
