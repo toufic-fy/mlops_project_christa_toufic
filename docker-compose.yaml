@@ -12,11 +12,14 @@ services:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONPATH=/app/src
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
     depends_on:
       - mlflow
     volumes:
       - ./src:/app/src # for debugging purposes
-      - ./data:/app/data  # Mount data directory for sharing with the container
+      - ./data:/app/data
+      - ./data/mlruns:/data/mlruns
+      - ./data/mlflow.db:/data/mlflow.db
     command: >
       /app/.venv/bin/uvicorn api.app:app --host 0.0.0.0 --port 8000
 
@@ -26,7 +29,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      MLFLOW_TRACKING_URI: http://127.0.0.1:5000
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
     volumes:
       - ./data/mlruns:/mlflow/mlruns
       - ./data/mlflow.db:/mlflow/mlflow.db

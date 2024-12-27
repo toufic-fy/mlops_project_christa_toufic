@@ -1,5 +1,5 @@
 from email_classifier.pipelines.factory import PipelineFactory
-from email_classifier.config import load_config, Config
+from email_classifier.config import load_config, Config, PipelineType
 from functools import lru_cache
 from email_classifier.data_handling.data_loader.factory import DataLoaderFactory
 
@@ -11,7 +11,7 @@ def get_config(config_path: str = "config/config.yaml") -> Config:
     return load_config(config_path)
 
 # Dependency to get the inference pipeline
-def get_pipeline(type: str, config: Config):
+def get_pipeline(type: PipelineType, config: Config):
     """
     Dependency to load and return the inference pipeline.
     """

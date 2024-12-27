@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks, Query
 from api.dependencies import get_config, get_pipeline, load_data, get_experiment_name
 from api.schemas import InferenceRequest, InferenceResponse, TrainingResponse
+from email_classifier.config import PipelineType
 
 
 # API Router
@@ -20,7 +21,7 @@ def health_check():
 def inference(
     request: InferenceRequest,
     config=Depends(get_config),
-    pipeline=Depends(lambda config=Depends(get_config): get_pipeline("inference", config)),
+    pipeline=Depends(lambda config=Depends(get_config): get_pipeline(PipelineType.inference, config)),
 ):
     """
     Perform inference on the given email body.
@@ -48,7 +49,7 @@ def train(
         config = get_config(config_path)
         data = load_data(config)
         experiment_name = get_experiment_name(config)
-        pipeline = get_pipeline("training", config)
+        pipeline = get_pipeline(PipelineType.training, config)
         background_tasks.add_task(pipeline.run, data=data["body"], labels=data["label"], experiment_name=experiment_name)
         return TrainingResponse(status="success", message="Training pipeline successfully started")
     except Exception as e:

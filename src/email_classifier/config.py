@@ -3,6 +3,9 @@ from pydantic import BaseModel, Field, ValidationError, field_validator
 from enum import Enum
 from typing import List, Dict, Union, Any, cast
 
+class PipelineType(str, Enum):
+    training = "training"
+    inference = "inference"
 class FileType(str, Enum):
     csv = "csv"
 
