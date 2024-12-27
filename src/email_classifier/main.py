@@ -1,6 +1,6 @@
 import argparse
 from loguru import logger
-from email_classifier.config import load_config
+from email_classifier.config import load_config, PipelineType
 from scripts.training_batch import main as training_main
 from scripts.inference_batch import main as inference_main
 
@@ -18,9 +18,9 @@ def parse_command_args():
     parser.add_argument(
         "--script",
         type=str,
-        choices=["training", "inference"],
+        choices=[PipelineType.training, PipelineType.inference],
         required=True,
-        help="Which script to run: 'training' or 'inference'.",
+        help= f"Which script to run: '{PipelineType.training}' or '{PipelineType.inference}'.",
     )
     return parser.parse_args()
 
@@ -34,10 +34,10 @@ def main():
             return
 
         # Determine which script to run
-        if args.script == "training":
+        if args.script == PipelineType.training:
             print("Running training script...")
             training_main(config)
-        elif args.script == "inference":
+        elif args.script == PipelineType.inference:
             print("Running inference script...")
             inference_main(config)
         else:

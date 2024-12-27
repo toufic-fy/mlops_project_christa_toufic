@@ -1,10 +1,11 @@
 from .base_pipeline import BasePipeline
 from sklearn.model_selection import train_test_split
 from ..training.trainer.trainer import Trainer
-from ...utils.mlf_utils import save_model_with_vectorizer
+from utils.mlf_utils import save_model_with_vectorizer
 import mlflow
 import mlflow.sklearn
 import pandas as pd
+import os
 
 class TrainingPipeline(BasePipeline):
 
@@ -36,14 +37,12 @@ class TrainingPipeline(BasePipeline):
         return 0
 
 
-    def run(self, data: list[str], labels: list, experiment_name: str, log_best_accuracy: bool = True):
+    def run(self, data: list[str], labels: list, experiment_name: str, log_best_accuracy: bool = False):
         """Perform training, including vectorization and model fitting."""
         self.logger.info("Running training pipeline...")
 
         if not experiment_name:
             raise ValueError("Experiment name must be specified in the configuration.")
-
-        mlflow.set_experiment(experiment_name)
 
         # TODO: next major - make test_size, stratify and radom_seed configurable
         X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
@@ -78,9 +77,17 @@ class TrainingPipeline(BasePipeline):
             confusion_matrix_df.to_csv(confusion_matrix_path, index=False)
             mlflow.log_artifact(confusion_matrix_path)
 
+            # Debugging
+            if not os.path.exists(confusion_matrix_path):
+                print(f"File {confusion_matrix_path} was not created.")
+            else:
+                print(f"File {confusion_matrix_path} exists at {os.path.abspath("confusion_matrix.csv")} and is ready to log.")
+                mlflow.log_artifact(confusion_matrix_path)
+
             # Log the model after evaluation
             if log_best_accuracy:
                 best_accuracy = self.fetch_best_accuracy(experiment_name)
+                print("training debug: ", eval["accuracy"], best_accuracy)
                 if eval["accuracy"] > best_accuracy:
                     self.logger.info("New best model found, logging to MLflow.")
                     save_model_with_vectorizer(trained_model, self._vectorizer)

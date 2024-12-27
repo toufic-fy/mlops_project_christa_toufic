@@ -1,4 +1,4 @@
-from email_classifier.config import Config
+from email_classifier.config import Config, PipelineType
 from email_classifier.app_core import load_pipeline
 from email_classifier.config import load_config
 from typing import Optional
@@ -13,7 +13,7 @@ def main(config: Optional[Config] = None):
 
     print("✅ Starting training pipeline")
     pipeline = load_pipeline(
-        pipeline_type="training",
+        pipeline_type=PipelineType.training,
         config=config
     )
 
